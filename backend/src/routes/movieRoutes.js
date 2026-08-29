@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 const adminMiddleware = require("../middleware/adminMiddlieware");
+const upload = require("../middleware/upload");
 
 const {
   getAllMovies,
@@ -11,7 +12,13 @@ const {
   deleteMovie,
 } = require("../controllers/movieController");
 
-router.post("/", authMiddleware, adminMiddleware, createMovie);
+router.post(
+  "/",
+  authMiddleware,
+  adminMiddleware,
+  upload.single("poster"),
+  createMovie,
+);
 
 router.get("/", getAllMovies);
 

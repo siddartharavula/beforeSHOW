@@ -5,6 +5,17 @@ const createComment = async (req, res) => {
     const { rating, comment } = req.body;
     const movieId = req.params.id;
     const userId = req.userId;
+
+    const existingComment = await Comments.findOne({
+      movie: movieId,
+      user: userId,
+    });
+    if (existingComment) {
+      return res.status(400).json({
+        message: "You have already commented on this movie",
+      });
+    }
+
     const newComment = await Comments.create({
       rating,
       comment,
@@ -16,6 +27,11 @@ const createComment = async (req, res) => {
       Comment: newComment,
     });
   } catch (err) {
+    if (err.code === 11000) {
+      return res.status(400).json({
+        message: "You have already commented on this movie",
+      });
+    }
     res.status(500).json({
       message: err.message,
     });
@@ -35,7 +51,7 @@ const getAllCommentsByMovieId = async (req, res) => {
         message: "No Comments for this Movie",
       });
     }
-    
+
     res.status(200).json({
       allCommentsOfMovie,
     });

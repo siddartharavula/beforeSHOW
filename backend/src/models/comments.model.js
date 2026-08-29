@@ -22,6 +22,11 @@ const commentSchema = new mongoose.Schema({
   }
 });
 
+commentSchema.index(
+  { user: 1, movie: 1 },
+  { unique: true }
+);
+
 const commentsModel= mongoose.model("Comments",commentSchema);
 
 module.exports=commentsModel;

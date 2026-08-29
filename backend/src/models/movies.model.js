@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const movieSchema = new mongoose.Schema({
+  poster:{
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -12,6 +16,7 @@ const movieSchema = new mongoose.Schema({
   date: {
     type: Date,
     required: true,
+    default: Date.now,
   },
 });
 

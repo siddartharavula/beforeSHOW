@@ -25,7 +25,6 @@ const authMiddleware = (req, res, next) => {
 
     req.userId = decoded.userId;
     req.userRole = decoded.role;
-    console.log(decoded.role);
 
     next();
 
