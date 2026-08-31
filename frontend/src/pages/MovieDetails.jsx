@@ -11,20 +11,28 @@ const MovieDetails = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      try {
-        const data = await getMovieById(id);
+  const fetchMovie = async () => {
+    try {
+      const data = await getMovieById(id);
 
-        setMovie(data.movie || data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+      console.log("MOVIE DETAILS:", data);
 
-    fetchMovie();
-  }, [id]);
+      setMovie({
+        ...data.movie,
+        averageRating: data.averageRating,
+        totalReviews: data.totalReviews,
+        comments: data.comments,
+      });
+    } catch (err) {
+      console.log("ERROR:", err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchMovie();
+}, [id]);
 
   if (loading) {
     return (
@@ -52,35 +60,34 @@ const MovieDetails = () => {
   }
 
   return (
-    <section className="w-full px-8 py-12 md:px-16 lg:px-24">
+    <section className="w-full px-5 py-2 md:px-16 lg:px-24 flex gap-8">
 
-      <div className="grid gap-12 md:grid-cols-[300px_1fr]">
+      <div className="gap-2 md:grid-cols-[300px_1fr] ">
 
         <img
           src={movie.poster}
           alt={movie.name}
-          className="w-full rounded-2xl object-cover shadow-2xl"
+          className="w-60 h-100 rounded-2xl object-cover shadow-2xl"
         />
 
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-start">
 
-          <p className="text-sm font-medium uppercase tracking-widest text-green-500">
-            {movie.genre}
-          </p>
-
-          <h1 className="mt-3 text-5xl font-bold">
+          <h1 className="mt-3 mb-1 text-3xl font-bold">
             {movie.name}
           </h1>
 
-          <p className="mt-4 text-gray-400">
-            {new Date(movie.date).getFullYear()}
+          <p className="text-sm font-medium uppercase tracking-widest text-green-500">
+            {movie.genre}{" "}
+            <span className="ml-5 text-white">
+              {new Date(movie.date).getFullYear()}
+            </span>
           </p>
 
-          <div className="mt-8 flex items-center gap-5">
+          <div className="mt-5 flex items-center gap-5">
 
             <div>
-              <p className="text-3xl font-bold text-green-500">
-                {movie.averageRating || "—"}
+              <p className="text-2xl font-bold text-green-500">
+                {movie.averageRating || "*"}
               </p>
 
               <p className="text-sm text-gray-500">
@@ -89,7 +96,7 @@ const MovieDetails = () => {
             </div>
 
             <div>
-              <p className="text-3xl font-bold">
+              <p className="text-2xl font-bold">
                 {movie.totalReviews || 0}
               </p>
 
@@ -105,13 +112,13 @@ const MovieDetails = () => {
       </div>
 
       {movie.comments?.length > 0 && (
-        <div className="mt-16">
+        <div className="p-2">
 
-          <h2 className="mb-6 text-2xl font-bold">
+          <h2 className="mb-5 text-2xl font-bold text-green-500">
             Reviews
           </h2>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid w-70 gap-5">
 
             {movie.comments.map((comment) => (
               <div
@@ -119,6 +126,7 @@ const MovieDetails = () => {
                 className="rounded-2xl border border-gray-800 bg-gray-900 p-5"
               >
                 <div className="flex justify-between">
+
                   <p className="font-semibold">
                     {comment.userName}
                   </p>
@@ -126,11 +134,13 @@ const MovieDetails = () => {
                   <p className="text-green-500">
                     ★ {comment.rating}
                   </p>
+
                 </div>
 
                 <p className="mt-3 text-gray-400">
                   {comment.comment}
                 </p>
+
               </div>
             ))}
 
