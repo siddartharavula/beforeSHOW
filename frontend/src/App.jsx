@@ -14,22 +14,47 @@ import Profile from "./pages/Profile";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-gray-950 text-white">
+      <div className="flex min-h-screen flex-col bg-gray-950 text-white">
+
         <Navbar />
 
-        <main>
+        <main className="flex-1">
           <Routes>
+
             <Route path="/" element={<Home />} />
+
             <Route path="/movies" element={<Movies />} />
-            <Route path="/series" element={<Series />} />
-            <Route path="/movies/:id" element={<MovieDetails />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/profile" element={<Profile />} />
+
+            <Route
+              path="/movies/:id"
+              element={<MovieDetails />}
+            />
+
+            <Route
+              path="/series"
+              element={<Series />}
+            />
+
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+
+            <Route
+              path="/signup"
+              element={<Signup />}
+            />
+
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+
           </Routes>
         </main>
 
         <Footer />
+
       </div>
     </BrowserRouter>
   );

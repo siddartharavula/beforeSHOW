@@ -1,23 +1,21 @@
 const Series = () => {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-16">
+    <section className="flex min-h-[70vh] items-center justify-center px-6">
 
-      <p className="mb-2 text-sm font-medium uppercase tracking-widest text-green-500">
-        beforeSHOW
-      </p>
+      <div className="text-center">
 
-      <h1 className="text-4xl font-bold">
-        Series
-      </h1>
-
-      <div className="mt-12 rounded-2xl border border-dashed border-gray-800 bg-gray-900/40 py-24 text-center">
-        <p className="text-xl font-semibold text-gray-300">
-          Series are coming soon.
+        <p className="text-sm uppercase tracking-[0.3em] text-green-500">
+          beforeSHOW
         </p>
 
-        <p className="mt-2 text-gray-500">
+        <h1 className="mt-3 text-5xl font-bold">
+          Series
+        </h1>
+
+        <p className="mt-4 text-gray-500">
           We're expanding the library.
         </p>
+
       </div>
 
     </section>

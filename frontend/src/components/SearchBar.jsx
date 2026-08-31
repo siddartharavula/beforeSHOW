@@ -1,7 +1,9 @@
 const SearchBar = ({ value, onChange }) => {
   return (
-    <div className="flex items-center rounded-full border border-gray-700 bg-gray-900 px-4 py-3">
-      <span className="mr-3 text-gray-500">⌕</span>
+    <div className="flex w-full items-center rounded-full border border-gray-700 bg-gray-900 px-2 py-1 transition focus-within:border-green-500">
+      <span className="mr-3 text-lg text-gray-500">
+        ⌕
+      </span>
 
       <input
         type="text"

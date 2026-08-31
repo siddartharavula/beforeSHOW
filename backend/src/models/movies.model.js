@@ -18,6 +18,9 @@ const movieSchema = new mongoose.Schema({
     required: true,
     default: Date.now,
   },
+  rating: {
+    type: Number,
+  }
 });
 
 const movies = mongoose.model("Movies", movieSchema);
