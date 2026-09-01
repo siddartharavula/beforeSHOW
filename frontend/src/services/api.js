@@ -1,4 +1,4 @@
-const API_URL = "https://beforeshow.onrender.com";
+const API_URL = "https://beforeshow.onrender.com/";
 
 export const getMovies = async (search = "") => {
   const url = search
