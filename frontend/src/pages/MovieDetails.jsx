@@ -185,20 +185,19 @@ const MovieDetails = () => {
 
         {/* REVIEWS */}
 
-        <div className="grid max-h-100 grid-cols-4 gap-5 overflow-y-auto pb-3 scrollbar-none [&::-webkit-scrollbar]:hidden">
+        <div className="grid h-full grid-cols-2 gap-5 overflow-y-auto pb-3 scrollbar-none [&::-webkit-scrollbar]:hidden">
 
           {movie.comments?.length > 0 ? (
             movie.comments.map((comment, index) => (
               <div
                 key={comment._id || index}
-                className="h-40 rounded-2xl border border-gray-800 bg-gray-900 p-5"
+                className="h-2/3 flex flex-col rounded-2xl border border-gray-800 bg-gray-900 p-5"
               >
 
                 <div className="flex items-center justify-between gap-2">
 
                   <p className="truncate font-semibold">
                     {comment.userName}
-                    console.log(comment.userName);
                   </p>
 
                   <p className="shrink-0 text-green-500">
@@ -207,7 +206,7 @@ const MovieDetails = () => {
 
                 </div>
 
-                <p className="mt-4 max-h-20 overflow-y-auto text-gray-400 scrollbar-none [&::-webkit-scrollbar]:hidden">
+                <p className="mt-2 flex-1 overflow-y-auto text-gray-400 scrollbar-none">
                   {comment.comment}
                 </p>
 
