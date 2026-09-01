@@ -59,7 +59,7 @@ const getAllMovies = async (req, res) => {
     const {
       search,
       page = 1,
-      limit = 10,
+      limit = 50,
       sort = "latest",
     } = req.query;
 
