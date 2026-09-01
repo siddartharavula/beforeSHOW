@@ -198,6 +198,7 @@ const MovieDetails = () => {
 
                   <p className="truncate font-semibold">
                     {comment.userName}
+                    console.log(comment.userName);
                   </p>
 
                   <p className="shrink-0 text-green-500">
