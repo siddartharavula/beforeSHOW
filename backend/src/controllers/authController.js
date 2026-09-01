@@ -97,6 +97,12 @@ const login = async (req, res) => {
       message: "Login successful",
       accessToken,
       refreshToken,
+      user: {
+        id: user._id,
+        userName: user.userName,
+        fullName: user.fullName,
+        email: user.email,
+      },
     });
   } catch (err) {
     res.status(500).json({
@@ -135,7 +141,7 @@ const refreshAccessToken = async (req, res) => {
     });
   } catch (err) {
     res.status(401).json({
-      message: "Invalid or expired refresh token"
+      message: "Invalid or expired refresh token",
     });
   }
 };
@@ -246,5 +252,5 @@ module.exports = {
   getMyProfile,
   updateMyProfile,
   changePassword,
-  refreshAccessToken
+  refreshAccessToken,
 };

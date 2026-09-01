@@ -66,7 +66,7 @@ const getMyComments = async (req, res) => {
   try {
     const comments = await Comments.find({
       user: req.userId,
-    }).populate("movie", "name");
+    }).populate("movie", "name poster");
 
     return res.status(200).json({
       myComments: comments,

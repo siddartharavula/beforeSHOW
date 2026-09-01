@@ -19,7 +19,7 @@ const movieRoutes = require("./src/routes/movieRoutes");
 app.use("/movies", movieRoutes);
 
 const commentRoutes = require("./src/routes/commentRoutes");
-app.use("/movies", commentRoutes);
+app.use("/comments", commentRoutes);
 
 const authRouter = require("./src/routes/authRoutes");
 app.use("/auth", authRouter);

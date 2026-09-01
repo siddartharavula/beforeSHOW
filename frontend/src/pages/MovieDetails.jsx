@@ -1,21 +1,87 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { getMovieById } from "../services/api";
+import { getMovieById, createComment } from "../services/api";
+import CommentBox from "../components/commentBox";
+import { useAuth } from "../context/authContext.jsx";
 
 const MovieDetails = () => {
   const { id } = useParams();
+
+  const { accessToken, user } = useAuth();
 
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-  const fetchMovie = async () => {
-    try {
-      const data = await getMovieById(id);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState("");
 
-      console.log("MOVIE DETAILS:", data);
+  const [commentLoading, setCommentLoading] = useState(false);
+  const [commentError, setCommentError] = useState("");
+
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const data = await getMovieById(id);
+
+        setMovie({
+          ...data.movie,
+          averageRating: data.averageRating,
+          totalReviews: data.totalReviews,
+          comments: data.comments,
+        });
+      } catch (err) {
+        console.log("ERROR:", err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovie();
+  }, [id]);
+
+  const handleComment = async (e) => {
+    e.preventDefault();
+
+    if (!accessToken) {
+      setCommentError("Please login to comment.");
+      return;
+    }
+
+    if (!rating) {
+      setCommentError("Please give a rating.");
+      return;
+    }
+
+    if (Number(rating) < 1 || Number(rating) > 10) {
+      setCommentError("Rating must be between 1 and 10.");
+      return;
+    }
+
+    if (!comment.trim()) {
+      setCommentError("Please write a comment.");
+      return;
+    }
+
+    try {
+      setCommentLoading(true);
+      setCommentError("");
+
+      await createComment(
+        id,
+        {
+          rating: Number(rating),
+          comment: comment.trim(),
+        },
+        accessToken
+      );
+
+      setComment("");
+      setRating("");
+
+      const data = await getMovieById(id);
 
       setMovie({
         ...data.movie,
@@ -24,15 +90,11 @@ const MovieDetails = () => {
         comments: data.comments,
       });
     } catch (err) {
-      console.log("ERROR:", err);
-      setError(err.message);
+      setCommentError(err.message);
     } finally {
-      setLoading(false);
+      setCommentLoading(false);
     }
   };
-
-  fetchMovie();
-}, [id]);
 
   if (loading) {
     return (
@@ -60,14 +122,16 @@ const MovieDetails = () => {
   }
 
   return (
-    <section className="w-full px-5 py-2 md:px-16 lg:px-24 flex gap-8">
+    <section className="flex w-full gap-8 px-5 py-2 md:px-16 lg:px-24">
 
-      <div className="gap-2 md:grid-cols-[300px_1fr] ">
+      {/* LEFT SIDE */}
+
+      <div className="w-60 shrink-0">
 
         <img
           src={movie.poster}
           alt={movie.name}
-          className="w-60 h-100 rounded-2xl object-cover shadow-2xl"
+          className="h-100 w-60 rounded-2xl object-cover shadow-2xl"
         />
 
         <div className="flex flex-col justify-start">
@@ -111,43 +175,90 @@ const MovieDetails = () => {
 
       </div>
 
-      {movie.comments?.length > 0 && (
-        <div className="p-2">
+      {/* RIGHT SIDE */}
 
-          <h2 className="mb-5 text-2xl font-bold text-green-500">
-            Reviews
-          </h2>
+      <div className="flex min-w-0 flex-1 flex-col">
 
-          <div className="grid w-70 gap-5">
+        <h2 className="mb-5 text-2xl font-bold text-green-500">
+          Reviews
+        </h2>
 
-            {movie.comments.map((comment) => (
+        {/* REVIEWS */}
+
+        <div className="grid max-h-100 grid-cols-4 gap-5 overflow-y-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+
+          {movie.comments?.length > 0 ? (
+            movie.comments.map((comment, index) => (
               <div
-                key={comment._id}
-                className="rounded-2xl border border-gray-800 bg-gray-900 p-5"
+                key={comment._id || index}
+                className="h-40 rounded-2xl border border-gray-800 bg-gray-900 p-5"
               >
-                <div className="flex justify-between">
 
-                  <p className="font-semibold">
+                <div className="flex items-center justify-between gap-2">
+
+                  <p className="truncate font-semibold">
                     {comment.userName}
                   </p>
 
-                  <p className="text-green-500">
+                  <p className="shrink-0 text-green-500">
                     ★ {comment.rating}
                   </p>
 
                 </div>
 
-                <p className="mt-3 text-gray-400">
+                <p className="mt-4 max-h-20 overflow-y-auto text-gray-400 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {comment.comment}
                 </p>
 
               </div>
-            ))}
-
-          </div>
+            ))
+          ) : (
+            <p className="col-span-4 text-gray-600">
+              No reviews yet.
+            </p>
+          )}
 
         </div>
-      )}
+
+        {/* COMMENT SECTION */}
+
+        {user ? (
+          <div className="mt-auto">
+
+            {commentError && (
+              <p className="mt-4 text-sm text-red-400">
+                {commentError}
+              </p>
+            )}
+
+            <CommentBox
+              rating={rating}
+              setRating={setRating}
+              comment={comment}
+              setComment={setComment}
+              onSubmit={handleComment}
+              loading={commentLoading}
+            />
+
+          </div>
+        ) : (
+          <div className="mt-auto rounded-2xl border border-gray-800 bg-gray-900 p-5 text-center">
+
+            <p className="text-gray-400">
+              Login to rate and comment on this movie.
+            </p>
+
+            <Link
+              to="/login"
+              className="mt-3 inline-block text-green-500 hover:underline"
+            >
+              Log in
+            </Link>
+
+          </div>
+        )}
+
+      </div>
 
     </section>
   );

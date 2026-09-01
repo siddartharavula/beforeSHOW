@@ -2,9 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { loginUser } from "../services/api";
+import { useAuth } from "../context/authContext.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const { login } = useAuth();
 
   const [form, setForm] = useState({
     loginId: "",
@@ -30,10 +33,7 @@ const Login = () => {
 
       const data = await loginUser(form);
 
-      console.log("LOGIN RESPONSE:", data);
-
-      // We'll properly handle the access token
-      // with Auth Context shortly.
+      login(data);
 
       navigate("/");
     } catch (err) {
@@ -63,6 +63,7 @@ const Login = () => {
           onSubmit={handleSubmit}
           className="mt-8 space-y-5"
         >
+
           <input
             name="loginId"
             type="text"
@@ -96,6 +97,7 @@ const Login = () => {
           >
             {loading ? "Logging in..." : "Log in"}
           </button>
+
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-500">

@@ -61,3 +61,62 @@ export const signupUser = async (userData) => {
 
   return data;
 };
+
+export const getMyRatings = async (accessToken) => {
+  const response = await fetch(`${API_URL}/comments/my`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to fetch ratings");
+  }
+
+  return data;
+};
+
+export const createComment = async (movieId, commentData, accessToken) => {
+  const response = await fetch(
+    `${API_URL}/comments/${movieId}/comments`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+      body: JSON.stringify(commentData),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to post comment");
+  }
+
+  return data;
+};
+
+export const getMyComments = async (accessToken) => {
+  const response = await fetch(
+    `${API_URL}/comments/profile/mycomments`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to fetch your ratings");
+  }
+
+  return data;
+};
