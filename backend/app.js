@@ -7,7 +7,10 @@ dotenv.config();
 const cors = require("cors");
 app.use(
   cors({
-    origin: "https://before-show.vercel.app",
+    origin: [
+      "http://localhost:5173",
+      "https://before-show.vercel.app",
+    ],
     credentials: true,
   })
 );
