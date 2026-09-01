@@ -26,7 +26,7 @@ const Navbar = () => {
           <img
             src={logo}
             alt="beforeSHOW"
-            className="h-10 w-auto"
+            className="h-10 w-auto p-1.5"
           />
         </Link>
 

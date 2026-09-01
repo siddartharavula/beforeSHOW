@@ -54,8 +54,8 @@ const Signup = () => {
   return (
     <section className="flex items-center justify-center p-6 ">
       <div className="w-full max-w-lg h-50">
-        <p className="text-sm tracking-[0.3em] text-green-500">
-          beforeSHOW
+        <p className="text-sm tracking-[0.2em] text-green-500">
+          <span className="text-white">before</span>SHOW
         </p>
 
         <h1 className="mt-3 text-4xl font-bold">Create your account.</h1>
@@ -65,7 +65,6 @@ const Signup = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="mt-5 space-y-5">
-
           <div className="grid grid-cols-2 gap-4">
             <input
               name="firstName"

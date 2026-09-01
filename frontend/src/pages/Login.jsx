@@ -47,8 +47,8 @@ const Login = () => {
     <section className="flex h-120 items-center justify-center px-6">
       <div className="w-full max-w-md">
 
-        <p className="text-sm tracking-[0.3em] text-green-500">
-          beforeSHOW
+        <p className="text-sm tracking-[0.2em] text-green-500">
+          <span className="text-white">before</span>SHOW
         </p>
 
         <h1 className="mt-3 text-4xl font-bold">
