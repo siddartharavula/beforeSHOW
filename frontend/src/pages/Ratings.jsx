@@ -69,7 +69,7 @@ const Ratings = () => {
 
         /* RATINGS GRID */
 
-        <div className="mt-5 grid grid-cols-3 gap-5 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-5 grid grid-cols-3 gap-5 overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden">
 
           {ratings.map((rating) => (
 
@@ -96,7 +96,7 @@ const Ratings = () => {
 
                 <div className="flex h-1/4 flex-col justify-center px-4">
 
-                  <h2 className="line-clamp-2 text-xs font-semibold">
+                  <h2 className="line-clamp-2 text-sm font-semibold">
                     {rating.movie?.name}
                   </h2>
 
@@ -110,7 +110,7 @@ const Ratings = () => {
 
               {/* RIGHT SIDE - 2/3 */}
 
-              <div className="w-3/5 overflow-y-auto px-2 py-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="w-3/5 overflow-y-auto px-2 py-5 scrollbar-none [&::-webkit-scrollbar]:hidden">
 
                 <p className="text-sm leading-6 text-gray-400">
                   {rating.comment}

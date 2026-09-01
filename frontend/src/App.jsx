@@ -11,34 +11,92 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Ratings from "./pages/Ratings";
+import Organizations from "./pages/Organizations";
+import OrganizationDetails from "./pages/OrganizationDetails";
+import AdminCreate from "./pages/AdminCreate";
+import CreateOrganization from "./pages/CreateOrganization";
+import CreateMovie from "./pages/CreateMovie";
 
 const App = () => {
   return (
     <BrowserRouter>
       <div className="flex min-h-screen flex-col bg-gray-950 text-white">
+
         <Navbar />
 
         <main className="flex-1">
           <Routes>
-            <Route path="/" element={<Home />} />
 
-            <Route path="/movies" element={<Movies />} />
+            <Route
+              path="/"
+              element={<Home />}
+            />
 
-            <Route path="/movies/:id" element={<MovieDetails />} />
+            <Route
+              path="/movies"
+              element={<Movies />}
+            />
 
-            <Route path="/series" element={<Series />} />
+            <Route
+              path="/movies/:id"
+              element={<MovieDetails />}
+            />
 
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/series"
+              element={<Series />}
+            />
 
-            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/login"
+              element={<Login />}
+            />
 
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              path="/signup"
+              element={<Signup />}
+            />
 
-            <Route path="/ratings" element={<Ratings />} />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+
+            <Route
+              path="/ratings"
+              element={<Ratings />}
+            />
+
+            <Route
+              path="/organizations"
+              element={<Organizations />}
+            />
+
+            <Route
+              path="/organizations/:id"
+              element={<OrganizationDetails />}
+            />
+
+            <Route
+              path="/admin/create"
+              element={<AdminCreate />}
+            />
+
+            <Route
+              path="/admin/create/movie"
+              element={<CreateMovie />}
+            />
+
+            <Route
+              path="/admin/create/organization"
+              element={<CreateOrganization />}
+            />
+
           </Routes>
         </main>
 
         <Footer />
+
       </div>
     </BrowserRouter>
   );

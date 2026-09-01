@@ -185,7 +185,7 @@ const MovieDetails = () => {
 
         {/* REVIEWS */}
 
-        <div className="grid max-h-100 grid-cols-4 gap-5 overflow-y-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="grid max-h-100 grid-cols-4 gap-5 overflow-y-auto pb-3 scrollbar-none [&::-webkit-scrollbar]:hidden">
 
           {movie.comments?.length > 0 ? (
             movie.comments.map((comment, index) => (
@@ -206,7 +206,7 @@ const MovieDetails = () => {
 
                 </div>
 
-                <p className="mt-4 max-h-20 overflow-y-auto text-gray-400 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <p className="mt-4 max-h-20 overflow-y-auto text-gray-400 scrollbar-none [&::-webkit-scrollbar]:hidden">
                   {comment.comment}
                 </p>
 

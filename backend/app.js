@@ -24,5 +24,7 @@ app.use("/comments", commentRoutes);
 const authRouter = require("./src/routes/authRoutes");
 app.use("/auth", authRouter);
 
+const organizationRoutes = require("./src/routes/organizationRoutes");
+app.use("/organizations", organizationRoutes);
 
 module.exports = app;

@@ -120,3 +120,168 @@ export const getMyComments = async (accessToken) => {
 
   return data;
 };
+
+export const createOrganization = async (
+  organizationData,
+  accessToken
+) => {
+  const response = await fetch(
+    `${API_URL}/organizations`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+      body: JSON.stringify(organizationData),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to create organization"
+    );
+  }
+
+  return data;
+};
+
+export const getOrganizations = async () => {
+  const response = await fetch(
+    `${API_URL}/organizations`
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to fetch organizations"
+    );
+  }
+
+  return data;
+};
+
+export const getMoviesByOrganization = async (organizationId) => {
+  const response = await fetch(
+    `${API_URL}/movies/organization/${organizationId}`
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to fetch organization movies"
+    );
+  }
+
+  return data;
+};
+
+export const createMovie = async (
+  movieData,
+  accessToken
+) => {
+  const response = await fetch(`${API_URL}/movies`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    credentials: "include",
+    body: JSON.stringify(movieData),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to create movie"
+    );
+  }
+
+  return data;
+};
+
+export const getMyProfile = async (accessToken) => {
+  const response = await fetch(
+    `${API_URL}/auth/getprofile`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to fetch profile"
+    );
+  }
+
+  return data;
+};
+
+
+export const updateMyProfile = async (
+  profileData,
+  accessToken
+) => {
+  const response = await fetch(
+    `${API_URL}/auth/updateprofile`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+      body: JSON.stringify(profileData),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to update profile"
+    );
+  }
+
+  return data;
+};
+
+
+export const changePassword = async (
+  passwordData,
+  accessToken
+) => {
+  const response = await fetch(
+    `${API_URL}/auth/change-password`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: "include",
+      body: JSON.stringify(passwordData),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to change password"
+    );
+  }
+
+  return data;
+};

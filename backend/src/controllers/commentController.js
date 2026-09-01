@@ -1,8 +1,38 @@
 const Comments = require("../models/comments.model");
+const Movies = require("../models/movies.model");
+
+const updateMovieRating = async (movieId) => {
+  const comments = await Comments.find({
+    movie: movieId,
+  });
+
+  if (comments.length === 0) {
+    await Movies.findByIdAndUpdate(movieId, {
+      rating: 0,
+    });
+
+    return;
+  }
+
+  const totalRating = comments.reduce(
+    (sum, comment) => sum + comment.rating,
+    0,
+  );
+
+  const averageRating = Number(
+    (totalRating / comments.length).toFixed(2),
+  );
+
+  await Movies.findByIdAndUpdate(movieId, {
+    rating: averageRating,
+  });
+};
+
 
 const createComment = async (req, res) => {
   try {
     const { rating, comment } = req.body;
+
     const movieId = req.params.id;
     const userId = req.userId;
 
@@ -10,6 +40,7 @@ const createComment = async (req, res) => {
       movie: movieId,
       user: userId,
     });
+
     if (existingComment) {
       return res.status(400).json({
         message: "You have already commented on this movie",
@@ -22,7 +53,10 @@ const createComment = async (req, res) => {
       movie: movieId,
       user: userId,
     });
-    res.status(201).json({
+
+    await updateMovieRating(movieId);
+
+    return res.status(201).json({
       message: "Comment Posted",
       Comment: newComment,
     });
@@ -32,16 +66,21 @@ const createComment = async (req, res) => {
         message: "You have already commented on this movie",
       });
     }
-    res.status(500).json({
+
+    return res.status(500).json({
       message: err.message,
     });
   }
 };
 
+
 const getAllCommentsByMovieId = async (req, res) => {
   try {
     const movieId = req.params.id;
-    const allCommentsOfMovie = await Comments.find({ movie: movieId }).populate(
+
+    const allCommentsOfMovie = await Comments.find({
+      movie: movieId,
+    }).populate(
       "user",
       "userName",
     );
@@ -52,35 +91,43 @@ const getAllCommentsByMovieId = async (req, res) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       allCommentsOfMovie,
     });
   } catch (err) {
-    res.status(500).json({
+    return res.status(500).json({
       message: err.message,
     });
   }
 };
+
 
 const getMyComments = async (req, res) => {
   try {
     const comments = await Comments.find({
       user: req.userId,
-    }).populate("movie", "name poster");
+    }).populate(
+      "movie",
+      "name poster rating",
+    );
 
     return res.status(200).json({
       myComments: comments,
     });
   } catch (err) {
-    res.status(500).json({
+    return res.status(500).json({
       message: err.message,
     });
   }
 };
 
+
 const updateComment = async (req, res) => {
   try {
-    const comment = await Comments.findById(req.params.id);
+    const comment = await Comments.findById(
+      req.params.id,
+    );
+
     if (!comment) {
       return res.status(404).json({
         message: "Comment not found",
@@ -105,20 +152,25 @@ const updateComment = async (req, res) => {
 
     await comment.save();
 
-    res.status(200).json({
+    await updateMovieRating(comment.movie);
+
+    return res.status(200).json({
       message: "Comment Updated",
       updatedComment: comment,
     });
   } catch (err) {
-    res.status(500).json({
+    return res.status(500).json({
       message: err.message,
     });
   }
 };
 
+
 const deleteComment = async (req, res) => {
   try {
-    const comment = await Comments.findById(req.params.id);
+    const comment = await Comments.findById(
+      req.params.id,
+    );
 
     if (!comment) {
       return res.status(404).json({
@@ -132,17 +184,24 @@ const deleteComment = async (req, res) => {
       });
     }
 
-    await Comments.findByIdAndDelete(req.params.id);
+    const movieId = comment.movie;
+
+    await Comments.findByIdAndDelete(
+      req.params.id,
+    );
+
+    await updateMovieRating(movieId);
 
     return res.status(200).json({
       message: "Comment deleted successfully",
     });
   } catch (err) {
-    res.status(500).json({
+    return res.status(500).json({
       message: err.message,
     });
   }
 };
+
 
 module.exports = {
   createComment,

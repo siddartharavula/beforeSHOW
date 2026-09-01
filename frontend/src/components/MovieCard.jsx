@@ -11,7 +11,7 @@ const MovieCard = ({ movie }) => {
         <img
           src={movie.poster}
           alt={movie.name}
-          className="h-full w-full object-cover tansition duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
 
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
@@ -25,17 +25,29 @@ const MovieCard = ({ movie }) => {
       </div>
 
       <div className="mt-4">
+
         <h3 className="truncate text-lg font-semibold text-white">
           {movie.name}
         </h3>
 
         <div className="mt-1 flex items-center gap-2 text-sm text-gray-500">
+
           <span>{movie.genre}</span>
+
           <span>•</span>
+
           <span>
             {new Date(movie.date).getFullYear()}
           </span>
+
+          <span>•</span>
+
+          <span className="text-green-500">
+            ★ {movie.rating > 0 ? movie.rating : "No rating"}
+          </span>
+
         </div>
+
       </div>
     </Link>
   );
