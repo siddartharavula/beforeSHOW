@@ -17,7 +17,7 @@ const Movies = () => {
         setError("");
 
         const data = await getMovies(search);
-        console.log(data); 
+        console.log(data);
 
         setMovies(data.movies || []);
       } catch (err) {
@@ -33,21 +33,23 @@ const Movies = () => {
   return (
     <div className="w-full">
 
-      <section className="border-b border-gray-800 bg-linear-to-b from-gray-900 to-gray-950">
-        <div className="px-8 py-2 md:px-16 lg:px-24">
+      {/* HERO SECTION */}
 
-          <p className=" text-sm font-semibold tracking-[0.3em] text-green-500">
+      <section className="border-b border-gray-800 bg-linear-to-b from-gray-900 to-gray-950">
+        <div className="px-5 py-4 md:px-16 md:py-2 lg:px-24">
+
+          <p className="text-sm font-semibold tracking-[0.3em] text-green-500">
             <span className="text-white">before</span>SHOW
           </p>
 
-          <h1 className="flex max-w-4xl flex-wrap gap-x-3 font-bold leading-tight tracking-tight md:text-5xl">
+          <h1 className="mt-2 flex max-w-4xl flex-wrap gap-x-3 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl">
             Find your next
             <span className="text-green-500">
               obsession
             </span>
           </h1>
 
-          <p className=" max-w-xl text-md leading-relaxed text-gray-300">
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-gray-300 md:text-md">
             Explore movies, discover something new, and decide what deserves
             your <span className="text-green-500">TIME</span>
           </p>
@@ -55,12 +57,14 @@ const Movies = () => {
         </div>
       </section>
 
-      <section className="px-8 py-2 md:px-16 lg:px-24 ">
+      {/* MOVIES SECTION */}
 
-        <div className="mb-2 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+      <section className="px-5 py-4 md:px-16 md:py-2 lg:px-24">
+
+        <div className="mb-4 flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-6">
 
           <div>
-            <p className=" text-sm text-gray-500">
+            <p className="text-sm text-gray-500">
               Explore the collection
             </p>
 

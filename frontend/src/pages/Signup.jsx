@@ -52,27 +52,35 @@ const Signup = () => {
   };
 
   return (
-    <section className="flex items-center justify-center p-6 ">
-      <div className="w-full max-w-lg h-50">
+    <section className="flex w-full items-center justify-center px-5 py-8 sm:px-6 md:py-10">
+
+      <div className="h-auto w-full max-w-lg">
+
         <p className="text-sm tracking-[0.2em] text-green-500">
           <span className="text-white">before</span>SHOW
         </p>
 
-        <h1 className="mt-3 text-4xl font-bold">Create your account.</h1>
+        <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
+          Create your account.
+        </h1>
 
-        <p className="mt-1 text-gray-500">
+        <p className="mt-1 text-sm text-gray-500 sm:text-base">
           Join beforeSHOW and start exploring.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-5 space-y-5">
-          <div className="grid grid-cols-2 gap-4">
+
+          {/* NAME */}
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
             <input
               name="firstName"
               value={form.firstName}
               onChange={handleChange}
               placeholder="Name"
               required
-              className="w-full rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
+              className="w-full min-w-0 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
             />
 
             <input
@@ -80,9 +88,12 @@ const Signup = () => {
               value={form.lastName}
               onChange={handleChange}
               placeholder="Family Name"
-              className="w-full rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
+              className="w-full min-w-0 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
             />
+
           </div>
+
+          {/* USERNAME */}
 
           <input
             name="userName"
@@ -90,8 +101,10 @@ const Signup = () => {
             onChange={handleChange}
             placeholder="Username"
             required
-            className="w-full rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
+            className="w-full min-w-0 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
           />
+
+          {/* EMAIL */}
 
           <input
             name="email"
@@ -100,8 +113,10 @@ const Signup = () => {
             onChange={handleChange}
             placeholder="Email"
             required
-            className="w-full rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
+            className="w-full min-w-0 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
           />
+
+          {/* PASSWORD */}
 
           <input
             name="password"
@@ -110,14 +125,18 @@ const Signup = () => {
             onChange={handleChange}
             placeholder="Password"
             required
-            className="w-full rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
+            className="w-full min-w-0 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none focus:border-green-500"
           />
+
+          {/* ERROR */}
 
           {error && (
             <p className="rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-400">
               {error}
             </p>
           )}
+
+          {/* SUBMIT */}
 
           <button
             type="submit"
@@ -126,15 +145,21 @@ const Signup = () => {
           >
             {loading ? "Creating..." : "Create account"}
           </button>
+
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-500">
           Already have an account?{" "}
-          <Link to="/login" className="text-green-500 hover:underline">
+          <Link
+            to="/login"
+            className="text-green-500 hover:underline"
+          >
             Log in
           </Link>
         </p>
+
       </div>
+
     </section>
   );
 };

@@ -40,36 +40,36 @@ const Ratings = () => {
 
   if (error) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center text-red-400">
+      <div className="flex min-h-[70vh] items-center justify-center px-5 text-center text-red-400">
         {error}
       </div>
     );
   }
 
   return (
-    <section className="w-full p-10">
+    <section className="w-full min-w-0 px-5 py-8 sm:px-8 md:px-10">
 
       {/* PAGE TITLE */}
 
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-3xl font-bold sm:text-4xl">
         My Ratings
       </h1>
 
-      <p className="mt-2 text-gray-500">
+      <p className="mt-2 text-sm text-gray-500 sm:text-base">
         Movies you've reviewed.
       </p>
 
       {/* NO RATINGS */}
 
       {ratings.length === 0 ? (
-        <p className="mt-16 text-gray-500">
+        <p className="mt-12 text-gray-500 sm:mt-16">
           You haven't rated any movies yet.
         </p>
       ) : (
 
         /* RATINGS GRID */
 
-        <div className="mt-5 grid grid-cols-3 gap-5 overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden">
+        <div className="mt-5 grid min-w-0 grid-cols-1 gap-5 overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden sm:grid-cols-2 lg:grid-cols-3">
 
           {ratings.map((rating) => (
 
@@ -77,26 +77,26 @@ const Ratings = () => {
 
             <div
               key={rating._id}
-              className="flex h-75 w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-900"
+              className="flex h-64 w-full min-w-0 overflow-hidden rounded-2xl border border-gray-800 bg-gray-900 sm:h-72 md:h-75"
             >
 
-              {/* LEFT SIDE - 1/3 */}
+              {/* LEFT SIDE */}
 
-              <div className="flex w-2/5 shrink-0 flex-col">
+              <div className="flex w-2/5 min-w-0 shrink-0 flex-col">
 
-                {/* POSTER - 75% */}
+                {/* POSTER */}
 
                 <img
                   src={rating.movie?.poster}
                   alt={rating.movie?.name}
-                  className="h-8/10 w-full object-cover p-1 rounded-2xl"
+                  className="h-8/10 w-full rounded-2xl object-cover p-1"
                 />
 
-                {/* MOVIE NAME + RATING - 25% */}
+                {/* MOVIE NAME + RATING */}
 
-                <div className="flex h-1/4 flex-col justify-center px-4">
+                <div className="flex h-1/4 min-w-0 flex-col justify-center px-3 sm:px-4">
 
-                  <h2 className="line-clamp-2 text-sm font-semibold">
+                  <h2 className="line-clamp-2 break-words text-xs font-semibold sm:text-sm">
                     {rating.movie?.name}
                   </h2>
 
@@ -108,11 +108,11 @@ const Ratings = () => {
 
               </div>
 
-              {/* RIGHT SIDE - 2/3 */}
+              {/* RIGHT SIDE */}
 
-              <div className="w-3/5 overflow-y-auto px-2 py-5 scrollbar-none [&::-webkit-scrollbar]:hidden">
+              <div className="min-w-0 flex-1 overflow-y-auto px-3 py-4 scrollbar-none [&::-webkit-scrollbar]:hidden sm:px-4 sm:py-5">
 
-                <p className="text-sm leading-6 text-gray-400">
+                <p className="break-words text-xs leading-5 text-gray-400 sm:text-sm sm:leading-6">
                   {rating.comment}
                 </p>
 

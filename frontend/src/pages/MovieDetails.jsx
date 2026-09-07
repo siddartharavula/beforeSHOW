@@ -106,7 +106,7 @@ const MovieDetails = () => {
 
   if (error || !movie) {
     return (
-      <div className="flex min-h-[70vh] flex-col items-center justify-center">
+      <div className="flex min-h-[70vh] flex-col items-center justify-center px-5 text-center">
         <h1 className="text-3xl font-bold">
           Movie not found
         </h1>
@@ -122,51 +122,61 @@ const MovieDetails = () => {
   }
 
   return (
-    <section className="flex w-full flex-col gap-8 px-5 py-2 md:flex-row md:px-16 lg:px-24">
+    <section className="flex w-full min-w-0 flex-col gap-8 overflow-hidden px-5 py-5 md:flex-row md:px-16 md:py-2 lg:px-24">
 
       {/* LEFT SIDE */}
 
       <div className="w-full shrink-0 md:w-60">
 
-        <img
-          src={movie.poster}
-          alt={movie.name}
-          className="h-100 w-60 rounded-2xl object-cover shadow-2xl"
-        />
+        {/* MOVIE INFO */}
 
-        <div className="flex flex-col justify-start">
+        <div className="flex items-center gap-4 md:block">
 
-          <h1 className="mt-3 mb-1 text-3xl font-bold">
-            {movie.name}
-          </h1>
+          {/* POSTER */}
 
-          <p className="text-sm font-medium uppercase tracking-widest text-green-500">
-            {movie.genre}{" "}
-            <span className="ml-5 text-white">
-              {new Date(movie.date).getFullYear()}
-            </span>
-          </p>
+          <img
+            src={movie.poster}
+            alt={movie.name}
+            className="h-52 w-36 shrink-0 rounded-xl object-cover shadow-2xl md:h-100 md:w-60 md:rounded-2xl"
+          />
 
-          <div className="mt-5 flex items-center gap-5">
+          {/* DETAILS */}
 
-            <div>
-              <p className="text-2xl font-bold text-green-500">
-                {movie.averageRating || "*"}
-              </p>
+          <div className="flex min-w-0 flex-1 flex-col justify-start text-left md:w-full">
 
-              <p className="text-sm text-gray-500">
-                Rating
-              </p>
-            </div>
+            <h1 className="mt-0 mb-1 break-words text-xl font-bold md:mt-3 md:text-3xl">
+              {movie.name}
+            </h1>
 
-            <div>
-              <p className="text-2xl font-bold">
-                {movie.totalReviews || 0}
-              </p>
+            <p className="text-xs font-medium uppercase tracking-widest text-green-500 md:text-sm">
+              {movie.genre}{" "}
+              <span className="ml-2 text-white md:ml-5">
+                {new Date(movie.date).getFullYear()}
+              </span>
+            </p>
 
-              <p className="text-sm text-gray-500">
-                Reviews
-              </p>
+            <div className="mt-4 flex items-center gap-4 md:mt-5 md:gap-5">
+
+              <div>
+                <p className="text-xl font-bold text-green-500 md:text-2xl">
+                  {movie.averageRating || "*"}
+                </p>
+
+                <p className="text-xs text-gray-500 md:text-sm">
+                  Rating
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xl font-bold md:text-2xl">
+                  {movie.totalReviews || 0}
+                </p>
+
+                <p className="text-xs text-gray-500 md:text-sm">
+                  Reviews
+                </p>
+              </div>
+
             </div>
 
           </div>
@@ -185,18 +195,18 @@ const MovieDetails = () => {
 
         {/* REVIEWS */}
 
-        <div className="flex max-h-[70vh] flex-col gap-5 overflow-y-auto pb-3 scrollbar-none [&::-webkit-scrollbar]:hidden">
+        <div className="flex max-h-[70vh] min-w-0 flex-col gap-5 overflow-y-auto pb-3 scrollbar-none [&::-webkit-scrollbar]:hidden">
 
           {movie.comments?.length > 0 ? (
             movie.comments.map((comment, index) => (
               <div
                 key={comment._id || index}
-                className="w-full rounded-2xl border border-gray-800 bg-gray-900 p-5"
+                className="w-full min-w-0 rounded-2xl border border-gray-800 bg-gray-900 p-4 md:p-5"
               >
 
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex min-w-0 items-center justify-between gap-2">
 
-                  <p className="truncate font-semibold">
+                  <p className="min-w-0 truncate font-semibold">
                     {comment.userName}
                   </p>
 
@@ -206,7 +216,7 @@ const MovieDetails = () => {
 
                 </div>
 
-                <p className="mt-2 text-gray-400">
+                <p className="mt-2 wrap-break-words text-gray-400">
                   {comment.comment}
                 </p>
 

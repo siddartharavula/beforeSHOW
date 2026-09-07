@@ -44,24 +44,24 @@ const Login = () => {
   };
 
   return (
-    <section className="flex h-120 items-center justify-center px-6">
+    <section className="flex w-full items-center justify-center px-5 py-10 sm:px-6 md:h-120 md:py-0">
       <div className="w-full max-w-md">
 
         <p className="text-sm tracking-[0.2em] text-green-500">
           <span className="text-white">before</span>SHOW
         </p>
 
-        <h1 className="mt-3 text-4xl font-bold">
+        <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
           Welcome back.
         </h1>
 
-        <p className="mt-2 text-gray-500">
+        <p className="mt-2 text-sm text-gray-500 sm:text-base">
           Sign in to continue.
         </p>
 
         <form
           onSubmit={handleSubmit}
-          className="mt-8 space-y-5"
+          className="mt-7 space-y-5 sm:mt-8"
         >
 
           <input
@@ -71,7 +71,7 @@ const Login = () => {
             onChange={handleChange}
             placeholder="Username or Email"
             required
-            className="w-full rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none transition focus:border-green-500"
+            className="w-full min-w-0 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none transition focus:border-green-500"
           />
 
           <input
@@ -81,7 +81,7 @@ const Login = () => {
             onChange={handleChange}
             placeholder="Password"
             required
-            className="w-full rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none transition focus:border-green-500"
+            className="w-full min-w-0 rounded-xl border border-gray-800 bg-gray-900 px-4 py-3 text-white outline-none transition focus:border-green-500"
           />
 
           {error && (

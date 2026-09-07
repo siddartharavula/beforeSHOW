@@ -10,19 +10,27 @@ const Navbar = () => {
   const { user, logout } = useAuth();
 
   const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
+    setMenuOpen(false);
+    setOpen(false);
     navigate("/");
   };
 
   return (
     <nav className="sticky top-0 z-50 border-b border-gray-800 bg-gray-950/95 backdrop-blur">
-      <div className="flex h-18 w-full items-center px-6">
+
+      <div className="flex h-18 w-full items-center px-4 sm:px-6">
 
         {/* LOGO */}
 
-        <Link to="/" className="shrink-0">
+        <Link
+          to="/"
+          className="shrink-0"
+          onClick={() => setMenuOpen(false)}
+        >
           <img
             src={logo}
             alt="beforeSHOW"
@@ -31,9 +39,9 @@ const Navbar = () => {
         </Link>
 
 
-        {/* LEFT LINKS */}
+        {/* DESKTOP LEFT LINKS */}
 
-        <div className="ml-16 flex items-center gap-8">
+        <div className="ml-16 hidden items-center gap-8 md:flex">
 
           <Link
             to="/movies"
@@ -59,9 +67,9 @@ const Navbar = () => {
         </div>
 
 
-        {/* RIGHT */}
+        {/* DESKTOP RIGHT */}
 
-        <div className="relative ml-auto flex items-center gap-4">
+        <div className="relative ml-auto hidden items-center gap-4 md:flex">
 
           {/* CREATE */}
 
@@ -140,7 +148,117 @@ const Navbar = () => {
 
         </div>
 
+
+        {/* MOBILE MENU BUTTON */}
+
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="ml-auto flex h-10 w-10 items-center justify-center rounded-lg text-xl text-gray-300 hover:bg-gray-900 hover:text-green-500 md:hidden"
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+
       </div>
+
+
+      {/* MOBILE MENU */}
+
+      {menuOpen && (
+
+        <div className="border-t border-gray-800 bg-gray-950 px-4 py-4 md:hidden">
+
+          <div className="flex flex-col gap-1">
+
+            <Link
+              to="/movies"
+              onClick={() => setMenuOpen(false)}
+              className="rounded-lg px-4 py-3 text-sm font-medium text-gray-300 hover:bg-gray-900 hover:text-green-500"
+            >
+              MOVIES
+            </Link>
+
+            <Link
+              to="/series"
+              onClick={() => setMenuOpen(false)}
+              className="rounded-lg px-4 py-3 text-sm font-medium text-gray-300 hover:bg-gray-900 hover:text-green-500"
+            >
+              SERIES
+            </Link>
+
+            <Link
+              to="/organizations"
+              onClick={() => setMenuOpen(false)}
+              className="rounded-lg px-4 py-3 text-sm font-medium text-gray-300 hover:bg-gray-900 hover:text-green-500"
+            >
+              ORGANIZATIONS
+            </Link>
+
+
+            {/* CREATE */}
+
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                navigate("/admin/create");
+              }}
+              className="mt-2 rounded-lg border border-gray-700 px-4 py-3 text-left text-sm transition hover:border-green-500 hover:text-green-500"
+            >
+              Create
+            </button>
+
+
+            {/* LOGIN / USER */}
+
+            {!user ? (
+
+              <button
+                onClick={() => {
+                  setMenuOpen(false);
+                  navigate("/login");
+                }}
+                className="mt-2 rounded-lg border border-gray-700 px-4 py-3 text-left text-sm transition hover:border-green-500 hover:text-green-500"
+              >
+                Log in
+              </button>
+
+            ) : (
+
+              <>
+
+                <Link
+                  to="/profile"
+                  onClick={() => setMenuOpen(false)}
+                  className="mt-2 rounded-lg px-4 py-3 text-sm hover:bg-gray-900"
+                >
+                  My Profile
+                </Link>
+
+                <Link
+                  to="/ratings"
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-lg px-4 py-3 text-sm hover:bg-gray-900"
+                >
+                  My Ratings
+                </Link>
+
+                <button
+                  onClick={handleLogout}
+                  className="rounded-lg px-4 py-3 text-left text-sm text-red-400 hover:bg-gray-900"
+                >
+                  Log out
+                </button>
+
+              </>
+
+            )}
+
+          </div>
+
+        </div>
+
+      )}
+
     </nav>
   );
 };

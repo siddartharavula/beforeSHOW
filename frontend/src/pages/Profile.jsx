@@ -188,7 +188,7 @@ const Profile = () => {
 
   if (!accessToken) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center text-gray-500">
+      <div className="flex min-h-[70vh] items-center justify-center px-5 text-center text-gray-500">
         Please login to view your profile.
       </div>
     );
@@ -196,57 +196,57 @@ const Profile = () => {
 
   if (error && !profile) {
     return (
-      <div className="flex min-h-[70vh] items-center justify-center text-red-400">
+      <div className="flex min-h-[70vh] items-center justify-center px-5 text-center text-red-400">
         {error}
       </div>
     );
   }
 
   return (
-    <section className="w-full px-8 py-12 md:px-16 lg:px-24">
+    <section className="w-full min-w-0 px-5 py-8 sm:px-8 sm:py-10 md:px-16 md:py-12 lg:px-24">
 
-      <div className="w-full">
+      <div className="w-full min-w-0">
 
         {/* HEADER */}
 
-        <p className="text-sm uppercase tracking-[0.3em] text-green-500">
+        <p className="text-xs uppercase tracking-[0.3em] text-green-500 sm:text-sm">
           beforeSHOW
         </p>
 
-        <h1 className="mt-3 text-4xl font-bold">
+        <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
           Profile
         </h1>
 
-        <p className="mt-2 text-gray-500">
+        <p className="mt-2 text-sm text-gray-500 sm:text-base">
           Your account details.
         </p>
 
 
         {/* 2/3 + 1/3 */}
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <div className="mt-8 grid min-w-0 gap-5 md:mt-10 md:grid-cols-3">
 
           {/* LEFT — 2/3 */}
 
-          <div className="md:col-span-2">
+          <div className="min-w-0 md:col-span-2">
 
-            <div className="rounded-2xl border border-gray-800 bg-gray-900 p-6 md:p-8">
+            <div className="rounded-2xl border border-gray-800 bg-gray-900 p-5 sm:p-6 md:p-8">
 
               {!editing ? (
 
                 <>
-                  <h2 className="text-2xl font-bold">
+                  <h2 className="text-xl font-bold sm:text-2xl">
                     Account
                   </h2>
 
-                  <div className="mt-8 grid gap-x-10 gap-y-7 md:grid-cols-2">
+                  <div className="mt-6 grid gap-x-10 gap-y-6 sm:mt-8 md:grid-cols-2">
 
                     <div>
                       <p className="text-sm text-gray-500">
                         Full Name
                       </p>
 
-                      <p className="mt-2 font-medium">
+                      <p className="mt-2 break-words font-medium">
                         {profile?.fullName?.firstName || "—"}{" "}
                         {profile?.fullName?.familyName || ""}
                       </p>
@@ -258,13 +258,13 @@ const Profile = () => {
                         Username
                       </p>
 
-                      <p className="mt-2 font-medium">
+                      <p className="mt-2 break-words font-medium">
                         {profile?.userName || "—"}
                       </p>
                     </div>
 
 
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-sm text-gray-500">
                         Email
                       </p>
@@ -280,7 +280,7 @@ const Profile = () => {
                         Phone Number
                       </p>
 
-                      <p className="mt-2 font-medium">
+                      <p className="mt-2 break-words font-medium">
                         {profile?.phoneNo || "—"}
                       </p>
                     </div>
@@ -304,7 +304,7 @@ const Profile = () => {
                     <button
                       type="button"
                       onClick={handleEdit}
-                      className="rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition hover:border-green-500 hover:text-green-500"
+                      className="w-full rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition hover:border-green-500 hover:text-green-500 sm:w-auto"
                     >
                       Edit Profile
                     </button>
@@ -315,13 +315,13 @@ const Profile = () => {
               ) : (
 
                 <>
-                  <h2 className="text-2xl font-bold">
+                  <h2 className="text-xl font-bold sm:text-2xl">
                     Edit Profile
                   </h2>
 
                   <form
                     onSubmit={handleUpdateProfile}
-                    className="mt-8"
+                    className="mt-6 sm:mt-8"
                   >
 
                     <div className="grid gap-5 md:grid-cols-2">
@@ -402,12 +402,12 @@ const Profile = () => {
                     </div>
 
 
-                    <div className="mt-8 flex gap-3 border-t border-gray-800 pt-6">
+                    <div className="mt-8 flex flex-col gap-3 border-t border-gray-800 pt-6 sm:flex-row">
 
                       <button
                         type="submit"
                         disabled={saving}
-                        className="rounded-xl bg-green-500 px-6 py-3 text-sm font-semibold text-black transition hover:bg-green-400 disabled:opacity-50"
+                        className="w-full rounded-xl bg-green-500 px-6 py-3 text-sm font-semibold text-black transition hover:bg-green-400 disabled:opacity-50 sm:w-auto"
                       >
                         {saving
                           ? "Saving..."
@@ -418,7 +418,7 @@ const Profile = () => {
                         type="button"
                         onClick={handleCancel}
                         disabled={saving}
-                        className="rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition hover:border-gray-500 disabled:opacity-50"
+                        className="w-full rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition hover:border-gray-500 disabled:opacity-50 sm:w-auto"
                       >
                         Cancel
                       </button>
@@ -437,11 +437,11 @@ const Profile = () => {
 
           {/* RIGHT — 1/3 */}
 
-          <div className="md:col-span-1">
+          <div className="min-w-0 md:col-span-1">
 
-            <div className="rounded-2xl border border-gray-800 bg-gray-900 p-6 md:p-8">
+            <div className="rounded-2xl border border-gray-800 bg-gray-900 p-5 sm:p-6 md:p-8">
 
-              <h2 className="text-2xl font-bold">
+              <h2 className="text-xl font-bold sm:text-2xl">
                 Security
               </h2>
 
@@ -451,7 +451,7 @@ const Profile = () => {
 
               <form
                 onSubmit={handleChangePassword}
-                className="mt-8 space-y-5"
+                className="mt-6 space-y-5 sm:mt-8"
               >
 
                 <div>
@@ -489,7 +489,7 @@ const Profile = () => {
                 <button
                   type="submit"
                   disabled={changingPassword}
-                  className="rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition hover:border-green-500 hover:text-green-500 disabled:opacity-50"
+                  className="w-full rounded-xl border border-gray-700 px-6 py-3 text-sm font-semibold transition hover:border-green-500 hover:text-green-500 sm:w-auto"
                 >
                   {changingPassword
                     ? "Changing..."
