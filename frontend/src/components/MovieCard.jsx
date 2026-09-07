@@ -36,12 +36,6 @@ const MovieCard = ({ movie }) => {
 
           <span>•</span>
 
-          <span className="shrink-0">
-            {new Date(movie.date).getFullYear()}
-          </span>
-
-          <span>•</span>
-
           <span className="shrink-0 text-green-500">
             ★ {movie.rating > 0 ? movie.rating : "No rating"}
           </span>
