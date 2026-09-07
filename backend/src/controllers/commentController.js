@@ -19,15 +19,12 @@ const updateMovieRating = async (movieId) => {
     0,
   );
 
-  const averageRating = Number(
-    (totalRating / comments.length).toFixed(2),
-  );
+  const averageRating = Number((totalRating / comments.length).toFixed(2));
 
   await Movies.findByIdAndUpdate(movieId, {
     rating: averageRating,
   });
 };
-
 
 const createComment = async (req, res) => {
   try {
@@ -73,17 +70,13 @@ const createComment = async (req, res) => {
   }
 };
 
-
 const getAllCommentsByMovieId = async (req, res) => {
   try {
     const movieId = req.params.id;
 
     const allCommentsOfMovie = await Comments.find({
       movie: movieId,
-    }).populate(
-      "user",
-      "userName",
-    );
+    }).populate("user", "userName");
 
     if (allCommentsOfMovie.length === 0) {
       return res.status(200).json({
@@ -101,15 +94,11 @@ const getAllCommentsByMovieId = async (req, res) => {
   }
 };
 
-
 const getMyComments = async (req, res) => {
   try {
     const comments = await Comments.find({
       user: req.userId,
-    }).populate(
-      "movie",
-      "name poster rating",
-    );
+    }).populate("movie", "name poster rating");
 
     return res.status(200).json({
       myComments: comments,
@@ -121,12 +110,9 @@ const getMyComments = async (req, res) => {
   }
 };
 
-
 const updateComment = async (req, res) => {
   try {
-    const comment = await Comments.findById(
-      req.params.id,
-    );
+    const comment = await Comments.findById(req.params.id);
 
     if (!comment) {
       return res.status(404).json({
@@ -165,12 +151,9 @@ const updateComment = async (req, res) => {
   }
 };
 
-
 const deleteComment = async (req, res) => {
   try {
-    const comment = await Comments.findById(
-      req.params.id,
-    );
+    const comment = await Comments.findById(req.params.id);
 
     if (!comment) {
       return res.status(404).json({
@@ -186,9 +169,7 @@ const deleteComment = async (req, res) => {
 
     const movieId = comment.movie;
 
-    await Comments.findByIdAndDelete(
-      req.params.id,
-    );
+    await Comments.findByIdAndDelete(req.params.id);
 
     await updateMovieRating(movieId);
 
@@ -201,7 +182,6 @@ const deleteComment = async (req, res) => {
     });
   }
 };
-
 
 module.exports = {
   createComment,

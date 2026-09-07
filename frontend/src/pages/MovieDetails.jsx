@@ -122,11 +122,11 @@ const MovieDetails = () => {
   }
 
   return (
-    <section className="flex w-full gap-8 px-5 py-2 md:px-16 lg:px-24">
+    <section className="flex w-full flex-col gap-8 px-5 py-2 md:flex-row md:px-16 lg:px-24">
 
       {/* LEFT SIDE */}
 
-      <div className="w-60 shrink-0">
+      <div className="w-full shrink-0 md:w-60">
 
         <img
           src={movie.poster}
@@ -177,7 +177,7 @@ const MovieDetails = () => {
 
       {/* RIGHT SIDE */}
 
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex w-full min-w-0 flex-1 flex-col md:w-auto">
 
         <h2 className="mb-5 text-2xl font-bold text-green-500">
           Reviews
@@ -185,13 +185,13 @@ const MovieDetails = () => {
 
         {/* REVIEWS */}
 
-        <div className="grid h-full grid-cols-2 gap-5 overflow-y-auto pb-3 scrollbar-none [&::-webkit-scrollbar]:hidden">
+        <div className="flex max-h-[70vh] flex-col gap-5 overflow-y-auto pb-3 scrollbar-none [&::-webkit-scrollbar]:hidden">
 
           {movie.comments?.length > 0 ? (
             movie.comments.map((comment, index) => (
               <div
                 key={comment._id || index}
-                className="h-2/3 flex flex-col rounded-2xl border border-gray-800 bg-gray-900 p-5"
+                className="w-full rounded-2xl border border-gray-800 bg-gray-900 p-5"
               >
 
                 <div className="flex items-center justify-between gap-2">
@@ -206,14 +206,14 @@ const MovieDetails = () => {
 
                 </div>
 
-                <p className="mt-2 flex-1 overflow-y-auto text-gray-400 scrollbar-none">
+                <p className="mt-2 text-gray-400">
                   {comment.comment}
                 </p>
 
               </div>
             ))
           ) : (
-            <p className="col-span-4 text-gray-600">
+            <p className="text-gray-600">
               No reviews yet.
             </p>
           )}
