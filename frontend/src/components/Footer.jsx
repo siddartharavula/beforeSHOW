@@ -1,12 +1,10 @@
 const Footer = () => {
   return (
-    <footer className="mt-16 border-t border-gray-800 sm:mt-20">
-      <div className="flex w-full flex-col gap-6 px-5 py-8 text-sm sm:px-6 sm:py-10 md:flex-row md:items-center md:justify-between md:gap-4">
+    <footer className="mt-8 border-t border-gray-800 sm:mt-12 md:mt-20">
+      <div className="flex w-full flex-col gap-3 px-4 py-5 text-xs sm:gap-4 sm:px-6 sm:py-8 sm:text-sm md:flex-row md:items-center md:justify-between md:gap-4 md:py-10">
 
-        {/* BRAND */}
-
-        <div className="text-center md:text-left">
-          <p className="text-lg font-semibold text-white">
+        <div>
+          <p className="text-base font-semibold text-white sm:text-lg">
             <span className="text-white">before</span>
             <span className="text-green-500">SHOW</span>
           </p>
@@ -16,9 +14,7 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* CONTACT */}
-
-        <div className="text-center md:text-center">
+        <div className="text-left md:text-center">
           <p className="text-gray-400">
             Want to see your organization on beforeSHOW?
           </p>
@@ -34,9 +30,7 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* COPYRIGHT */}
-
-        <p className="text-center text-gray-600 md:text-right">
+        <p className="text-gray-600">
           © 2026 beforeSHOW
         </p>
 

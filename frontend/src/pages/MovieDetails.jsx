@@ -122,7 +122,7 @@ const MovieDetails = () => {
   }
 
   return (
-    <section className="flex w-full min-w-0 flex-col gap-8 overflow-hidden px-5 py-5 md:flex-row md:px-16 md:py-2 lg:px-24">
+    <section className="flex w-full min-w-0 flex-col gap-4 overflow-hidden px-3 py-3 sm:gap-5 sm:px-5 sm:py-5 md:flex-row md:gap-8 md:px-16 md:py-2 lg:px-24">
 
       {/* LEFT SIDE */}
 
@@ -130,49 +130,49 @@ const MovieDetails = () => {
 
         {/* MOVIE INFO */}
 
-        <div className="flex items-center gap-4 md:block">
+        <div className="flex items-center gap-2 md:block">
 
           {/* POSTER */}
 
           <img
             src={movie.poster}
             alt={movie.name}
-            className="h-52 w-36 shrink-0 rounded-xl object-cover shadow-2xl md:h-100 md:w-60 md:rounded-2xl"
+            className="h-24 w-16 shrink-0 rounded-md object-cover shadow-lg sm:h-32 sm:w-22 sm:rounded-lg md:h-100 md:w-60 md:rounded-2xl md:shadow-2xl"
           />
 
           {/* DETAILS */}
 
           <div className="flex min-w-0 flex-1 flex-col justify-start text-left md:w-full">
 
-            <h1 className="mt-0 mb-1 break-words text-xl font-bold md:mt-3 md:text-3xl">
+            <h1 className="mb-1 break-words text-sm font-bold leading-tight sm:text-lg md:mt-3 md:text-3xl">
               {movie.name}
             </h1>
 
-            <p className="text-xs font-medium uppercase tracking-widest text-green-500 md:text-sm">
+            <p className="text-[9px] font-medium uppercase tracking-wider text-green-500 sm:text-[10px] md:text-sm md:tracking-widest">
               {movie.genre}{" "}
-              <span className="ml-2 text-white md:ml-5">
+              <span className="ml-1 text-white md:ml-5">
                 {new Date(movie.date).getFullYear()}
               </span>
             </p>
 
-            <div className="mt-4 flex items-center gap-4 md:mt-5 md:gap-5">
+            <div className="mt-2 flex items-center gap-3 sm:mt-3 md:mt-5 md:gap-5">
 
               <div>
-                <p className="text-xl font-bold text-green-500 md:text-2xl">
+                <p className="text-sm font-bold text-green-500 sm:text-lg md:text-2xl">
                   {movie.averageRating || "*"}
                 </p>
 
-                <p className="text-xs text-gray-500 md:text-sm">
+                <p className="text-[9px] text-gray-500 sm:text-xs md:text-sm">
                   Rating
                 </p>
               </div>
 
               <div>
-                <p className="text-xl font-bold md:text-2xl">
+                <p className="text-sm font-bold sm:text-lg md:text-2xl">
                   {movie.totalReviews || 0}
                 </p>
 
-                <p className="text-xs text-gray-500 md:text-sm">
+                <p className="text-[9px] text-gray-500 sm:text-xs md:text-sm">
                   Reviews
                 </p>
               </div>
@@ -187,86 +187,92 @@ const MovieDetails = () => {
 
       {/* RIGHT SIDE */}
 
-      <div className="flex w-full min-w-0 flex-1 flex-col md:w-auto">
+      <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col md:w-auto">
 
-        <h2 className="mb-5 text-2xl font-bold text-green-500">
+        <h2 className="mb-3 text-xl font-bold text-green-500 sm:mb-5 sm:text-2xl">
           Reviews
         </h2>
 
         {/* REVIEWS */}
 
-        <div className="flex max-h-[70vh] min-w-0 flex-col gap-5 overflow-y-auto pb-3 scrollbar-none [&::-webkit-scrollbar]:hidden">
+        <div className="min-h-0 flex-1 overflow-y-auto pb-2 scrollbar-none [&::-webkit-scrollbar]:hidden md:max-h-[70vh]">
 
-          {movie.comments?.length > 0 ? (
-            movie.comments.map((comment, index) => (
-              <div
-                key={comment._id || index}
-                className="w-full min-w-0 rounded-2xl border border-gray-800 bg-gray-900 p-4 md:p-5"
-              >
+          <div className="flex flex-col gap-3 sm:gap-5">
 
-                <div className="flex min-w-0 items-center justify-between gap-2">
+            {movie.comments?.length > 0 ? (
+              movie.comments.map((comment, index) => (
+                <div
+                  key={comment._id || index}
+                  className="w-full min-w-0 rounded-xl border border-gray-800 bg-gray-900 p-3 sm:rounded-2xl sm:p-4 md:p-5"
+                >
 
-                  <p className="min-w-0 truncate font-semibold">
-                    {comment.userName}
-                  </p>
+                  <div className="flex min-w-0 items-center justify-between gap-2">
 
-                  <p className="shrink-0 text-green-500">
-                    ★ {comment.rating}
+                    <p className="min-w-0 truncate text-sm font-semibold sm:text-base">
+                      {comment.userName}
+                    </p>
+
+                    <p className="shrink-0 text-sm text-green-500 sm:text-base">
+                      ★ {comment.rating}
+                    </p>
+
+                  </div>
+
+                  <p className="mt-1 break-words text-xs leading-5 text-gray-400 sm:mt-2 sm:text-sm sm:leading-6">
+                    {comment.comment}
                   </p>
 
                 </div>
+              ))
+            ) : (
+              <p className="text-sm text-gray-600">
+                No reviews yet.
+              </p>
+            )}
 
-                <p className="mt-2 wrap-break-words text-gray-400">
-                  {comment.comment}
-                </p>
-
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-600">
-              No reviews yet.
-            </p>
-          )}
+          </div>
 
         </div>
 
         {/* COMMENT SECTION */}
 
-        {user ? (
-          <div className="mt-auto">
+        <div className="shrink-0 pt-2 sm:pt-3">
 
-            {commentError && (
-              <p className="mt-4 text-sm text-red-400">
-                {commentError}
+          {user ? (
+            <>
+              {commentError && (
+                <p className="mb-2 text-xs text-red-400 sm:text-sm">
+                  {commentError}
+                </p>
+              )}
+
+              <CommentBox
+                rating={rating}
+                setRating={setRating}
+                comment={comment}
+                setComment={setComment}
+                onSubmit={handleComment}
+                loading={commentLoading}
+              />
+            </>
+          ) : (
+            <div className="rounded-xl border border-gray-800 bg-gray-900 p-3 text-center sm:rounded-2xl sm:p-5">
+
+              <p className="text-xs text-gray-400 sm:text-sm">
+                Login to rate and comment on this movie.
               </p>
-            )}
 
-            <CommentBox
-              rating={rating}
-              setRating={setRating}
-              comment={comment}
-              setComment={setComment}
-              onSubmit={handleComment}
-              loading={commentLoading}
-            />
+              <Link
+                to="/login"
+                className="mt-2 inline-block text-sm text-green-500 hover:underline"
+              >
+                Log in
+              </Link>
 
-          </div>
-        ) : (
-          <div className="mt-auto rounded-2xl border border-gray-800 bg-gray-900 p-5 text-center">
+            </div>
+          )}
 
-            <p className="text-gray-400">
-              Login to rate and comment on this movie.
-            </p>
-
-            <Link
-              to="/login"
-              className="mt-3 inline-block text-green-500 hover:underline"
-            >
-              Log in
-            </Link>
-
-          </div>
-        )}
+        </div>
 
       </div>
 
